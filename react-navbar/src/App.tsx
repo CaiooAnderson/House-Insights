@@ -1,7 +1,8 @@
 import { AppBar, Box, IconButton, Toolbar, Typography, Badge, Menu, MenuItem, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Drawer } from "@mui/material";
+import { useEffect, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import React, { useState } from "react";
+import React from "react";
 import InsightsIcon from '@mui/icons-material/Insights';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import WifiIcon from '@mui/icons-material/Wifi';
@@ -9,16 +10,27 @@ import LockIcon from '@mui/icons-material/Lock';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { AuthInfo, checkIsAuthenticated } from '../../utils/src/home-hub-utils'
 
 export default function App() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const isMenuOpen = Boolean(anchorEl);
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [authInfo, setAuthInfo] = useState<AuthInfo | undefined>();
 
-    const [open, setOpen] = React.useState(false);
+	// useEffect(() => {
+	// 	const { isAuthenticated, authInfo: authObj } = checkIsAuthenticated();
+  //   if (!isAuthenticated) {
+  //     return location.replace('/')
+  //   }
+	// 	setAuthInfo(authObj);
+	// }, []);
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
+	const isMenuOpen = Boolean(anchorEl);
+
+	const [open, setOpen] = useState(false);
+
+	const toggleDrawer = (newOpen: boolean) => () => {
+		setOpen(newOpen);
+	};
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
