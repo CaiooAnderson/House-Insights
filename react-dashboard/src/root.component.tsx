@@ -5,6 +5,7 @@ import HeroCard from './components/HeroCard';
 import UsersCard from './components/UsersCard';
 import WaterCard from './components/WaterCard';
 import { AuthInfo, checkIsAuthenticated } from '../../utils/src/home-hub-utils'
+import EditProfile from './components/EditProfile';
 
 export default function Root() {
 	const [authInfo, setAuthInfo] = useState<AuthInfo | undefined>();
@@ -12,14 +13,27 @@ export default function Root() {
 	useEffect(() => {
 		const { isAuthenticated, authInfo: authObj } = checkIsAuthenticated();
         if (!isAuthenticated) {
-        return location.replace('/')
+        	return location.replace('/')
         }
 		setAuthInfo(authObj);
 	}, []);
 
 	return (
 		<div id='single-spa-application:react-dashboard'>
-			<Box
+			{location.pathname.includes('edit-profile') ? (
+				<Box
+				width={1 / 4}
+				my={4}
+				display='flex'
+				alignItems='center'
+				gap={4}
+				p={2}
+				sx={{ margin: 'auto' }}
+			>
+				<EditProfile />
+			</ Box>
+			) : (
+				<Box
 				width={3 / 4}
 				my={4}
 				display='flex'
@@ -40,6 +54,7 @@ export default function Root() {
 					</Grid>
 				</Grid>
 			</Box>
+			)}
 		</div>
 	);
 }

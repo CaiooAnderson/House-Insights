@@ -10,19 +10,19 @@ import LockIcon from '@mui/icons-material/Lock';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { AuthInfo, checkIsAuthenticated } from '../../utils/src/home-hub-utils'
+import { AuthInfo, checkIsAuthenticated, logoutFunction } from '../../utils/src/home-hub-utils'
 
 export default function App() {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [authInfo, setAuthInfo] = useState<AuthInfo | undefined>();
 
-	// useEffect(() => {
-	// 	const { isAuthenticated, authInfo: authObj } = checkIsAuthenticated();
-  //   if (!isAuthenticated) {
-  //     return location.replace('/')
-  //   }
-	// 	setAuthInfo(authObj);
-	// }, []);
+	useEffect(() => {
+		const { isAuthenticated, authInfo: authObj } = checkIsAuthenticated();
+    if (!isAuthenticated) {
+      return location.replace('/')
+    }
+		setAuthInfo(authObj);
+	}, []);
 
 	const isMenuOpen = Boolean(anchorEl);
 
@@ -95,7 +95,7 @@ export default function App() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>
-              Usuário
+              {authInfo?.email}
             </MenuItem>
             <Divider />
             <ListItem disablePadding onClick={handleMenuClose}>
@@ -115,7 +115,7 @@ export default function App() {
               </ListItemButton>
             </ListItem>
             <Divider />
-            <ListItem disablePadding onClick={handleMenuClose}>
+            <ListItem disablePadding onClick={logoutFunction}>
               <ListItemButton>
                 <ListItemIcon>
                   <LogoutIcon />
@@ -127,6 +127,7 @@ export default function App() {
     );
 
     return (
+  <div id='single-spa-application:react-navbar'>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#9C27B0' }}>
         <Toolbar>
@@ -163,5 +164,6 @@ export default function App() {
       </Drawer>
       {renderMenu}
     </Box>
+  </div>
   );
 }

@@ -1,21 +1,18 @@
 import { Box, Button, TextField } from '@mui/material';
 
-import { loginFunction } from '../../../../utils/src/home-hub-utils';
 import { useForm } from 'react-hook-form';
+import { AuthInfo } from '../../../../utils/src/home-hub-utils'
 
-type FormValues = {
-	email: string;
-	password: string;
-};
+type FormValues = Omit<AuthInfo, 'authId'>;
 
-const LoginForm = () => {
+const EditProfile = () => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormValues>();
 
-	const onSubmit = (data: FormValues) => loginFunction(data.email);
+	const onSubmit = (data: FormValues) => console.log(data);
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
@@ -32,24 +29,32 @@ const LoginForm = () => {
 				})}
 			/>
 			<TextField
-				id='password'
-				label='Password'
+				id='firstName'
+				label='Nome'
 				variant='standard'
-				type='password'
 				sx={{ marginTop: '16px', marginX: '32px' }}
-				error={!!errors.password}
-				helperText={errors.password?.message}
-				{...register('password', { required: 'Senha obrigatória.' })}
+				error={!!errors.firstName}
+				helperText={errors.firstName?.message}
+				{...register('firstName')}
+			/>
+			<TextField
+				id='lastName'
+				label='Sobrenome'
+				variant='standard'
+				sx={{ marginTop: '16px', marginX: '32px' }}
+				error={!!errors.lastName}
+				helperText={errors.lastName?.message}
+				{...register('lastName')}
 			/>
 			<Button
 				variant='contained'
 				sx={{ backgroundColor: '#9C27B0', marginTop: '20px', marginX: '32px' }}
 				onClick={handleSubmit(onSubmit)}
 			>
-				Login
+				Editar Perfil
 			</Button>
 		</Box>
 	);
 };
 
-export default LoginForm;
+export default EditProfile;
