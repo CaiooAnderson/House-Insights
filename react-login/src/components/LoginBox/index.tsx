@@ -9,10 +9,11 @@ const LoginBox = () => {
 			<Box
 				sx={{
 					bgcolor: '#F5F5F5',
-					height: '45vh',
+					height: '65vh',
 					mt: '10vh',
 					borderRadius: '24px',
 					display: 'flex',
+					justifyContent: 'space-evenly',
 					alignItems: 'center',
 					flexDirection: 'column',
 				}}
