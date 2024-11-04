@@ -35,7 +35,7 @@ export default function App() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-          <ListItem disablePadding>
+          <ListItem disablePadding onClick={() => location.replace(`/dashboard/${authInfo.authId}/`)}>
             <ListItemButton>
               <ListItemIcon>
                 <SpaceDashboardIcon />
@@ -95,7 +95,7 @@ export default function App() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>
-              {authInfo?.email}
+              {!!authInfo?.firstName ? `${authInfo?.firstName} ${authInfo?.lastName}` : `${authInfo?.email}`}
             </MenuItem>
             <Divider />
             <ListItem disablePadding onClick={handleMenuClose}>
@@ -106,7 +106,7 @@ export default function App() {
                 <ListItemText primary={'Configurações'} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding onClick={handleMenuClose}>
+            <ListItem disablePadding onClick={() => location.replace(`/dashboard/${authInfo.authId}/edit-profile`)}>
               <ListItemButton>
                 <ListItemIcon>
                   <PersonIcon />
